@@ -1,0 +1,117 @@
+#### USER PANEL#####
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registration system PHP and MySQL</title>
+</head>
+<body>
+<div class="header">
+	<h2>User panel</h2>
+</div>
+<form method="post" action="register.php">
+	<div class="input-group">
+		<label>Username</label>
+		<input type="text" name="Can register" value="">
+	</div>
+	<div class="input-group">
+		<label>Email</label>
+		<input type="Update" name="Can update own profile" value="">
+	</div>
+	<div class="input-group">
+		<label>Password</label>
+		<input type="password" name="Can change password_1">
+	</div>
+	<div class="input-group">
+		<label>Confirm password</label>
+		<input type="Job" name="Search job">
+	</div>
+	<div class="input-group">
+		<label>Confirm password</label>
+		<input type="Job" name="Apply for the job">
+	</div>
+	<div class="input-group">
+		<label>Confirm password</label>
+		<input type="Resume" name="Upload CV(Only pdf,docx,.jpg,doc formats are allowed)">
+	</div>
+	<div class="input-group">
+		<button type="submit" class="btn" name="register_btn">Register</button>
+	</div>
+	<p>
+		Already a member? <a href="login.php">Sign in</a>
+	</p>
+</form>
+</body>
+</html>
+
+
+###### ADMIN PANEL########
+<?php
+
+include_once('connection.php');
+
+function test_input($data) {
+	
+	$data = trim($data);
+	$data = stripslashes($data);
+	$data = htmlspecialchars($data);
+	return $data;
+}
+
+if ($_SERVER["REQUEST_METHOD"]== "POST") {
+	
+	$adminname = test_input($_POST["adminname"]);
+	$password = test_input($_POST["password"]);
+	$stmt = $conn->prepare("SELECT * FROM adminlogin");
+	$stmt->execute();
+	$users = $stmt->fetchAll();
+	
+	foreach($users as $user) {
+		
+		if(($user['adminname'] == $adminname) && 
+			($user['password'] == $password)) {
+				header("Location: adminpage.php");
+		}
+		else {
+			echo "<script language='javascript'>";
+			echo "alert('WRONG INFORMATION')";
+			echo "</script>";
+			die();
+		}
+	}
+}
+
+?>
+<?php
+
+include_once('connection.php');
+
+function test_input($data) {
+	
+	$data = trim($data);
+	$data = stripslashes($data);
+	$data = htmlspecialchars($data);
+	return $data;
+}
+
+if ($_SERVER["REQUEST_METHOD"]== "POST") {
+	
+	$adminname = test_input($_POST["adminname"]);
+	$password = test_input($_POST["password"]);
+	$stmt = $conn->prepare("SELECT * FROM adminlogin");
+	$stmt->execute();
+	$users = $stmt->fetchAll();
+	
+	foreach($users as $user) {
+		
+		if(($user['adminname'] == $adminname) && 
+			($user['password'] == $password)) {
+				header("Location: adminpage.php");
+		}
+		else {
+			echo "<script language='javascript'>";
+			echo "alert('WRONG INFORMATION')";
+			echo "</script>";
+			die();
+		}
+	}
+}
